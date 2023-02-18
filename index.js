@@ -26,7 +26,7 @@ app.use("/users", users);
 app.use("/products", products);
 app.use("/orders",authenticator, orders);
 
-app.listen(PORT, () => {
-  connect();
+app.listen(PORT, async() => {
+  await connect();
   console.log(`server started on http://localhost:${PORT}`);
 });
