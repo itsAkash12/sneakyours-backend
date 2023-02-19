@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const PORT = process.env.PORT || 8080;
 const connect = require("./config/db");
-const {users, products, orders} = require("./routes")
+const {users, products, orders, carts} = require("./routes")
 const authenticator = require("./middlewares/authenticator.middleware");
 const fileUpload = require("express-fileupload")
 const cookieParser = require("cookie-parser")
@@ -24,9 +24,10 @@ app.get("/", (req,res)=> {
 
 app.use("/users", users);
 app.use("/products", products);
+app.use("/carts",authenticator, carts);
 app.use("/orders",authenticator, orders);
 
-app.listen(PORT, async() => {
-  await connect();
+app.listen(PORT, () => {
+  connect();
   console.log(`server started on http://localhost:${PORT}`);
 });
